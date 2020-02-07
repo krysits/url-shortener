@@ -1,5 +1,6 @@
 <?php
-namespace Krysits;
+namespace Shortener;
+
 class CountryCode
 {
 	public $ip = '';
@@ -13,11 +14,11 @@ class CountryCode
 
 	public function getCCbyIP($ip = Null)
 	{
-		if(!empty($ip))
-		{
+		if(!empty($ip)) {
 			$this->ip = $ip;
 			$this->country_code = $this->_geo_loc_code($ip);
 		}
+		
 		return $this->country_code;
 	}
 
@@ -25,7 +26,11 @@ class CountryCode
 		$url = $this->_ip_url . $ip . '/json';
 		$data = file_get_contents($url);
 		$json_data = json_decode($data);
-		if(!empty($json_data->country)) return $json_data->country;
+		
+		if(!empty($json_data->country)) {
+			return $json_data->country;
+		}
+		
 		return $this->country_code;    // old value
 	}
 };

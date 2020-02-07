@@ -1,9 +1,8 @@
 <?php
-
-namespace Krysits\Models;
+namespace Shortener\Models;
 
 use Krysits\Model;
-use Krysits\CountryCode;
+use Shortener\CountryCode;
 
 class Url extends Model
 {
@@ -14,6 +13,7 @@ class Url extends Model
 	public $alias;
 	public $ip;
 	public $country;
+	
 	public $created_at; //date('Y-m-d H:i:s');
 	public $updated_at; //date('Y-m-d H:i:s');
 	public $deleted_at; //date('Y-m-d H:i:s');
@@ -32,12 +32,14 @@ class Url extends Model
 
 	public function generate_code($number) {
 		$out   = "";
-		$codes = "abcdefghjkmnpqrstuvwxyz23456789ABCDEFGHJKMNPQRSTUVWXYZ";
-		while ($number > 53) {
-			$key = $number % 54;
-			$number = floor($number / 54) - 1;
+		$codes = "abcdefghjkmnpqrstuvwxyz0123456789ABCDEFGHJKMNPQRSTUVWXYZ";
+		
+		while ($number > 55) {
+			$key = $number % 56;
+			$number = floor($number / 56) - 1;
 			$out = $codes{$key}.$out;
 		}
+		
 		return $codes{$number}.$out;
 	}
 
@@ -54,15 +56,30 @@ class Url extends Model
 	public function addNew()
 	{
 		$this->setData($_REQUEST);
+		
 		$this->ip = $_SERVER['REMOTE_ADDR'];
 		$this->country = (new CountryCode($this->ip))->country_code;
+		
 		if(!filter_var($this->url, FILTER_VALIDATE_URL)) return -1;
-		$saved = $this->save((array) $this);
-		if($saved) {
-			$this->getNextCode($saved);
-			$savedMore = $this->save((array) $this, $this->id);
-			if($savedMore) return $this->getResultUrl(true);
+		
+		$this->getNextCode($this->getMaxId());
+		
+		$updatedMore = $this->save((array) $this, $this->id);
+		
+		if($updatedMore) {
+			return $this->getResultUrl(true);
 		}
+		
 		return 0;
+	}
+	
+	public function getMaxId()
+	{
+		$sql = "SELECT max(id) as number FROM ";
+		$sql .= $this->_table;
+		
+		$result = $this->_db->query($sql);
+		
+		return $result->fetchColumn() ?: 0;
 	}
 };

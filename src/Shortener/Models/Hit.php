@@ -1,9 +1,8 @@
 <?php
-
-namespace Krysits\Models;
+namespace Shortener\Models;
 
 use Krysits\Model;
-use Krysits\CountryCode;
+use Shortener\CountryCode;
 
 class Hit extends Model
 {
@@ -13,6 +12,7 @@ class Hit extends Model
 	public $ip;
 	public $country = 'XX';
 	public $secure = '0';
+	
 	public $created_at; //date('Y-m-d H:i:s');
 	public $updated_at; //date('Y-m-d H:i:s');
 	public $deleted_at; //date('Y-m-d H:i:s');
@@ -31,15 +31,28 @@ class Hit extends Model
 	}
 
 	public function addHit($url_id = 0) {
-		if(empty($url_id)) return false;
+		if(empty($url_id)) {
+			return false;
+		}
+		
 		$this->setData($_REQUEST);
+		
 		$this->uid = $url_id;
 		$this->ip = $_SERVER['REMOTE_ADDR'];
 		$republic = new CountryCode($this->ip);
-		if(isset($republic->country_code)) $this->country = $republic->country_code;
+		
+		if(isset($republic->country_code)) {
+			$this->country = $republic->country_code;
+		}
+		
 		$this->secure = intval($_SERVER['REMOTE_PORT']==443);
+		
 		$saved = $this->save((array) $this);
-		if($saved) return $saved;
+		
+		if($saved) {
+			return $saved;
+		}
+		
 		return 0;
 	}
 };
