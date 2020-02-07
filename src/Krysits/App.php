@@ -44,7 +44,7 @@ class App {
 				$this->redirect($goUrl[0]->url);
 			}
 			else if($aliasUrl) {
-				new Hit($goUrl[0]->id);
+				new Hit($aliasUrl[0]->id);
 				$this->redirect($aliasUrl[0]->url);
 			}
 			else $this->redirect('/');
