@@ -1,0 +1,32 @@
+.FormControl-body {
+}
+.FormControl-info {
+	width: calc(100% - 80px);
+	font-size: 12px;
+	float: left;
+	color: #000;
+}
+.FormControl-label {
+	width: 80px !important;
+	float: left;
+}
+.FormControl {
+	width: 99%;
+	margin: 5px;
+	padding: 4px;
+	text-align: left;
+	clear: both;
+}
+#optional {
+	margin: 5px 0px;
+	padding: 5px 5px 20px;
+	border-radius: 5px;
+	background-color: #eee;
+	border: 2px #aaa solid;
+	color: #666;
+}
+.FormControl--required label:after {
+	content: ' * ';
+	color: red;
+	font-weight: bold;
+}

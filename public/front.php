@@ -14,6 +14,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template -->
 	<link href="/css/landing-page.min.css" rel="stylesheet">
+	<link href="/css/campaign.css" rel="stylesheet">
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
@@ -39,11 +40,37 @@
 							       value="">
 							<input type="text" name="alias" id="alias" class="form-control form-control-sm" placeholder="Alias"
 							       value="">
+							<input type="button" onclick="$('#optional').removeClass('d-none');$(this).hide();" class="form-control form-control-sm" placeholder="Campaign"
+							       value="Add Campaign information">
 						</div>
 						<div class="col-12 col-md-3">
 							<button type="submit" class="btn btn-block btn-lg btn-primary">OK</button>
 						</div>
 					</div>
+					
+					<div id="optional" class="form-row d-none">
+						<div class="FormControl FormControl--inline FormControl--required"><label class="FormControl-label">Source</label>
+							<div class="FormControl-body"><input class="FormField" id="utm_source" name="utm_source" placeholder=" " value=""></div>
+							<div class="FormControl-info">The referrer: (e.g.&nbsp;<code>google</code>,&nbsp;<code>newsletter</code>)</div>
+						</div>
+						<div class="FormControl FormControl--inline FormControl--required"><label class="FormControl-label">Medium</label>
+							<div class="FormControl-body"><input class="FormField" id="utm_medium" name="utm_medium" placeholder=" "  value=""></div>
+							<div class="FormControl-info">Marketing medium: (e.g.&nbsp;<code>cpc</code>,&nbsp;<code>banner</code>,&nbsp;<code>email</code>)</div>
+						</div>
+						<div class="FormControl FormControl--inline FormControl--required"><label class="FormControl-label">Campaign Name</label>
+							<div class="FormControl-body"><input class="FormField" id="utm_campaign" name="utm_campaign" placeholder=" " value=""></div>
+							<div class="FormControl-info">Product, promo code, or slogan (e.g. <code>spring_sale</code>)</div>
+						</div>
+						<div class="FormControl FormControl--inline"><label class="FormControl-label">Term</label>
+							<div class="FormControl-body"><input class="FormField" id="utm_term" name="utm_term" placeholder=" " value=""></div>
+							<div class="FormControl-info">Identify the paid keywords</div>
+						</div>
+						<div class="FormControl FormControl--inline"><label class="FormControl-label">Content</label>
+							<div class="FormControl-body"><input class="FormField" id="utm_content" name="utm_content" placeholder=" " value=""></div>
+							<div class="FormControl-info">Use to differentiate ads</div>
+						</div>
+					</div>
+				
 				</form>
 			</div>
 		</div>
@@ -85,23 +112,51 @@
 <script>
 	$(document).on('submit', '#frm', (e)=>{
 		e.preventDefault();
-		var dati = {url: $('#q').val() };
-		if($('#alias').val().length) dati['alias'] = $('#alias').val();
-		$.get("add.php", dati, function(data){
-			if(data == '-1') {
-				alert('Invalid URL!');
-				$('#q').val('');
-				$('#alias').val('');
-			}
-			else if(data == '0') {
-				alert('URL not saved!');
-				$('#q').val('');
-				$('#alias').val('');
+		let data = {};
+		if($('#q').val().length) {
+			let campaign = '';
+			if($('#q').val().indexOf('?') == -1) {
+				campaign += $('#q').val() + '?';
 			}
 			else {
-				$('#q').val('');
-				$('#alias').val('');
-				$('#q').val(data);
+				campaign += $('#q').val();
+			}
+			if($('#utm_source').val().length) {
+				campaign += '&utm_source=' + $('#utm_source').val();
+			}
+			if($('#utm_medium').val().length) {
+				campaign += '&utm_source=' + $('#utm_medium').val();
+			}
+			if($('#utm_campaign').val().length) {
+				campaign += '&utm_source=' + $('#utm_campaign').val();
+			}
+			if($('#utm_term').val().length) {
+				campaign += '&utm_source=' + $('#utm_term').val();
+			}
+			if($('#utm_content').val().length) {
+				campaign += '&utm_source=' + $('#utm_content').val();
+			}
+			data['url'] = campaign;
+		}
+		else {
+			alert('No URL!');
+			return false;
+		}
+		if($('#alias').val().length) {
+			data['alias'] = $('#alias').val();
+		}
+		$.get("add.php", data, function(response){
+			if(response == '-1') {
+				alert('Invalid URL!');
+				$('#frm').trigger("reset");
+			}
+			else if(response == '0') {
+				alert('URL not saved!');
+				$('#frm').trigger("reset");
+			}
+			else {
+				$('#frm').trigger("reset");
+				$('#q').val(response);
 				$('#q').select();
 			}
 		});
