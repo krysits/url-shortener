@@ -15,13 +15,7 @@
 	<!-- Custom styles for this template -->
 	<link href="/css/landing-page.min.css" rel="stylesheet">
 	<link href="/css/campaign.css" rel="stylesheet">
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<script>
-		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-5467644203652210",
-			enable_page_level_ads: true
-		});
-	</script>
+	<script data-ad-client="ca-pub-5467644203652210" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
 <!-- head -->
@@ -81,18 +75,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<!-- 0k.lv - url shortener [front-page] -->
-				<ins class="adsbygoogle"
-				     style="display:block"
-				     data-ad-client="ca-pub-5467644203652210"
-				     data-ad-slot="1540878194"
-				     data-ad-format="auto"
-				     data-full-width-responsive="true"></ins>
-				<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
-				<p class="text-muted small mb-4 mb-lg-0">&copy; 0k.lv <?php echo date('Y');?></p>
+				
+				<ins data-revive-zoneid="1" data-revive-id="0acc88b3a59a820af783b96c26cb2f66"></ins> <br>
+				<ins data-revive-zoneid="2" data-revive-id="0acc88b3a59a820af783b96c26cb2f66"></ins> <br>
+				<ins data-revive-zoneid="3" data-revive-id="0acc88b3a59a820af783b96c26cb2f66"></ins>
+				<?= $_SERVER['SERVER_PORT'] == 443 ? '<script async src="https://node.lv/www/delivery/asyncjs.php"></script>':'';?>
+
+				<p class="text-muted small mt-2 mb-lg-0">&copy; <a href="https://krysits.com/" target="_blank">krysits.com</a> <?php echo date('Y');?></p>
 			</div>
 		</div>
 	</div>
