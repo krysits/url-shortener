@@ -103,12 +103,9 @@
 		e.preventDefault();
 		let data = {};
 		if($('#q').val().length) {
-			let campaign = '';
-			if($('#q').val().indexOf('?') == -1) {
-				campaign += $('#q').val() + '?';
-			}
-			else {
-				campaign += $('#q').val();
+			let campaign = $('#q').val();
+			if($('#q').val().indexOf('?') == -1 && !$('#optional').hasClass('d-none')) {
+				campaign += '?';
 			}
 			if($('#utm_source').val().length) {
 				campaign += '&utm_source=' + $('#utm_source').val();
