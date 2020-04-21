@@ -111,16 +111,16 @@
 				campaign += '&utm_source=' + $('#utm_source').val();
 			}
 			if($('#utm_medium').val().length) {
-				campaign += '&utm_source=' + $('#utm_medium').val();
+				campaign += '&utm_medium=' + $('#utm_medium').val();
 			}
 			if($('#utm_campaign').val().length) {
-				campaign += '&utm_source=' + $('#utm_campaign').val();
+				campaign += '&utm_campaign=' + $('#utm_campaign').val();
 			}
 			if($('#utm_term').val().length) {
-				campaign += '&utm_source=' + $('#utm_term').val();
+				campaign += '&utm_term=' + $('#utm_term').val();
 			}
 			if($('#utm_content').val().length) {
-				campaign += '&utm_source=' + $('#utm_content').val();
+				campaign += '&utm_content=' + $('#utm_content').val();
 			}
 			data['url'] = campaign;
 		}
