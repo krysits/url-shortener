@@ -45,7 +45,7 @@ class Hit extends Model
 			$this->country = $republic->country_code;
 		}
 		
-		$this->secure = $_SERVER['SERVER_PORT'] === 443 ? 1 : 0;
+		$this->secure = $_SERVER['REQUEST_SCHEME'] === 'https' ? 1 : 0;
 		
 		$saved = $this->save((array) $this);
 		
