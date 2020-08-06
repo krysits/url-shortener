@@ -32,6 +32,7 @@ CREATE TABLE `hits` (
   `ip` text NOT NULL,
   `country` varchar(2) DEFAULT 'XX',
   `secure` smallint(1) DEFAULT '0',
+  `ref` varchar(255) NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
