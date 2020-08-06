@@ -12,6 +12,7 @@ class Hit extends Model
 	public $ip;
 	public $country = 'XX';
 	public $secure = '0';
+	public $ref;
 	
 	public $created_at; //date('Y-m-d H:i:s');
 	public $updated_at; //date('Y-m-d H:i:s');
@@ -39,6 +40,7 @@ class Hit extends Model
 		
 		$this->uid = $url_id;
 		$this->ip = $_SERVER['REMOTE_ADDR'];
+        $this->ref = $_SERVER['HTTP_REFERER'];
 		$republic = new CountryCode($this->ip);
 		
 		if(isset($republic->country_code)) {
