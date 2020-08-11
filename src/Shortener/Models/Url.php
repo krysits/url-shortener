@@ -59,8 +59,14 @@ class Url extends Model
 		
 		$this->ip = $_SERVER['REMOTE_ADDR'];
 		$this->country = (new CountryCode($this->ip))->country_code;
-		
-		if(!filter_var($this->url, FILTER_VALIDATE_URL)) return -1;
+        
+        if(!filter_var($this->url, FILTER_VALIDATE_URL)) {
+            return -1;
+        }
+        
+        if(parse_url($this->url,PHP_URL_HOST) === $_SERVER['SERVER_NAME']) {
+            return -1;
+        }
 		
 		$this->getNextCode($this->getMaxId());
 		
