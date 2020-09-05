@@ -22,7 +22,9 @@ class Hit extends Model
 	public function __construct($url_id = 0)
 	{
 		parent::__construct();
-		if($url_id) $this->addHit($url_id);
+		if($url_id) {
+            $this->addHit($url_id);
+        }
 	}
 
 	// methods
@@ -49,12 +51,6 @@ class Hit extends Model
 		
 		$this->secure = $_SERVER['REQUEST_SCHEME'] === 'https' ? 1 : 0;
 		
-		$saved = $this->save((array) $this);
-		
-		if($saved) {
-			return $saved;
-		}
-		
-		return 0;
+		return $this->save((array) $this);
 	}
 };
