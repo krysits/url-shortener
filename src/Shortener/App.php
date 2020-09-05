@@ -1,6 +1,8 @@
 <?php
 namespace Shortener;
 
+use Pecee\Http\Exceptions\MalformedUrlException;
+use Pecee\SimpleRouter\Exceptions\HttpException;
 use Shortener\Models\Url;
 use Shortener\Models\Hit;
 use Pecee\SimpleRouter\SimpleRouter as Router;
@@ -11,11 +13,6 @@ class App {
 		$this->checkIP();
 		date_default_timezone_set("Europe/Riga");
 		$this->setRoutes();
-	}
-	
-	public function isJson()
-	{
-		header('Content-Type: application/json');
 	}
 	
 	public function addUrl()
@@ -30,15 +27,6 @@ class App {
 	{
 		if(empty($uri)) return;
 		header("Location: " . $uri);
-	}
-
-	public function _resave()
-	{
-		$list = (new Url)->getRecords();
-		
-		foreach($list as $key => $obj) {
-			(new Url)->save((array) $obj, $obj->id);
-		}
 	}
 	
 	// routes
@@ -56,11 +44,13 @@ class App {
 				new Hit($aliasUrl[0]->id);
 				$this->redirect($aliasUrl[0]->url);
 			}
-			else $this->redirect('/');
+			else {
+                $this->redirect('/');
+            }
 			
 		})->where(['code'=>'[A-Za-z]+']);
 
-		Router::get('/', function () {
+		Router::get('/', static function () {
 			include_once 'front.php';
 			return '';
 		});
@@ -70,6 +60,11 @@ class App {
 	public function run()
 	{
 		// output
-		Router::start();
-	}
+        try {
+            Router::start();
+        } catch (MalformedUrlException $e) {
+        } catch (HttpException $e) {
+        } catch (\Exception $e) {
+        }
+    }
 };
