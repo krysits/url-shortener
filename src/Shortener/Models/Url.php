@@ -19,15 +19,10 @@ class Url extends Model
 	public $deleted_at; //date('Y-m-d H:i:s');
 
 	// constructor
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	// methods
+    // methods
 	public function setTable($table = '')
 	{
-		$this->_table = (empty($table)) ? strtolower($this->getTableNameByNamespace(get_class())) : $table;
+		$this->_table = (empty($table)) ? strtolower($this->getTableNameByNamespace(__CLASS__)) : $table;
 	}
 
 	public function generate_code($number) {
@@ -81,11 +76,10 @@ class Url extends Model
 	
 	public function getMaxId()
 	{
-		$sql = "SELECT max(id) as number FROM ";
-		$sql .= $this->_table;
+		$sql = "SELECT max(id) as number FROM " . $this->_table;
 		
 		$result = $this->_db->query($sql);
 		
 		return $result->fetchColumn() ?: 0;
 	}
-};
+}

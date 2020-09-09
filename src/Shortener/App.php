@@ -1,6 +1,7 @@
 <?php
 namespace Shortener;
 
+use Exception;
 use Pecee\Http\Exceptions\MalformedUrlException;
 use Pecee\SimpleRouter\Exceptions\HttpException;
 use Shortener\Models\Url;
@@ -25,37 +26,40 @@ class App {
 
 	public function redirect($uri='')
 	{
-		if(empty($uri)) return;
+		if(empty($uri)) {
+            return;
+        }
 		header("Location: " . $uri);
 	}
 	
 	// routes
 	public function setRoutes() {
-
-		Router::get('/{code}', function ($code) {
-			$goUrl = (new Url)->getRecords(['code'=>$code], ['url', 'id'], 1);
-			$aliasUrl = (new Url)->getRecords(['alias'=>$code], ['url', 'id'], 1);
-			
-			if($goUrl) {
-				new Hit($goUrl[0]->id);
-				$this->redirect($goUrl[0]->url);
-			}
-			else if($aliasUrl) {
-				new Hit($aliasUrl[0]->id);
-				$this->redirect($aliasUrl[0]->url);
-			}
-			else {
-                $this->redirect('/');
-            }
-			
-		})->where(['code'=>'[A-Za-z]+']);
-
-		Router::get('/', static function () {
-			include_once 'front.php';
-			return '';
-		});
-
-	}
+        try {
+            Router::get('/{code}', function ($code) {
+                $goUrl = (new Url)->getRecords(['code' => $code], ['url', 'id'], 1);
+                $aliasUrl = (new Url)->getRecords(['alias' => $code], ['url', 'id'], 1);
+                
+                if ($goUrl) {
+                    new Hit($goUrl[0]->id);
+                    $this->redirect($goUrl[0]->url);
+                } elseif ($aliasUrl) {
+                    new Hit($aliasUrl[0]->id);
+                    $this->redirect($aliasUrl[0]->url);
+                } else {
+                    $this->redirect('/');
+                }
+            })->where(['code' => '[A-Za-z]+']);
+        } catch (MalformedUrlException $e) {
+        }
+        
+        try {
+            Router::get('/', static function () {
+                include_once 'front.php';
+                return '';
+            });
+        } catch (MalformedUrlException $e) {
+        }
+    }
 	
 	public function run()
 	{
@@ -64,7 +68,7 @@ class App {
             Router::start();
         } catch (MalformedUrlException $e) {
         } catch (HttpException $e) {
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
     }
-};
+}

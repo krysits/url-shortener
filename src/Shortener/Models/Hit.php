@@ -30,7 +30,7 @@ class Hit extends Model
 	// methods
 	public function setTable($table = '')
 	{
-		$this->_table = (empty($table)) ? strtolower($this->getTableNameByNamespace(get_class())) : $table;
+		$this->_table = (empty($table)) ? strtolower($this->getTableNameByNamespace(__CLASS__)) : $table;
 	}
 
 	public function addHit($url_id = 0) {
@@ -53,4 +53,4 @@ class Hit extends Model
 		
 		return $this->save((array) $this);
 	}
-};
+}

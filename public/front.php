@@ -81,7 +81,7 @@
 				<ins data-revive-zoneid="3" data-revive-id="0acc88b3a59a820af783b96c26cb2f66"></ins>
 				<?= $_SERVER['SERVER_PORT'] == 443 ? '<script async src="https://node.lv/www/delivery/asyncjs.php"></script>':'';?>
 
-				<p class="text-muted small mt-2 mb-lg-0">&copy; <a href="https://krysits.com/" target="_blank">krysits.com</a> <?php echo date('Y');?></p>
+				<p class="text-muted small mt-2 mb-lg-0">&copy; <a href="https://0k.lv/krysits" target="_blank">krysits.com</a> <?php echo date('Y');?></p>
 			</div>
 		</div>
 	</div>

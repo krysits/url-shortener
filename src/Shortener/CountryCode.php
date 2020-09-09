@@ -25,7 +25,7 @@ class CountryCode
 	private function _geo_loc_code($ip){
 		$url = $this->_ip_url . $ip . '/json';
 		$data = file_get_contents($url);
-		$json_data = json_decode($data);
+		$json_data = json_decode($data, false);
 		
 		if(!empty($json_data->country)) {
 			return $json_data->country;
@@ -33,4 +33,4 @@ class CountryCode
 		
 		return $this->country_code;    // old value
 	}
-};
+}
