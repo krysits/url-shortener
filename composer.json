@@ -9,7 +9,7 @@
         "ext-PDO": "^7.0",
         "masterexploder/phpthumb": "^2.1",
         "ext-mbstring": "^7.0",
-        "krysits/skeletony": "^0.1.2",
+        "krysits/skeletony": "0.1.4",
 	    "ext-json": "*"
 	}
 }
