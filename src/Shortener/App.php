@@ -48,7 +48,7 @@ class App {
                 } else {
                     $this->redirect('/');
                 }
-            })->where(['code' => '[A-Za-z]+']);
+            })->where(['code' => '[A-Za-z0-9]+']);
         } catch (MalformedUrlException $e) {
         }
         
