@@ -1,8 +1,6 @@
 0k.lv url-shortener
 -------------------
 
-Demo: https://0k.lv
-
 Author: Kristaps Lediņš aka @krysits.COM
 
 Tech: PHP7, MySQL, Javascript, CSS3, HTML5
@@ -35,4 +33,4 @@ SALT=<YourSaltPhrase>
 ---
 &copy; 2020 All rights reserved.
 
-https://0k.lv/skeletony
+https://segments.digital/shortener
